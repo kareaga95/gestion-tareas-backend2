@@ -1,0 +1,44 @@
+import authController from "../auth/authController.js";
+import jwt from "../../config/jwt.js";
+
+async function register(req, res) {
+    try {
+        const { username, email, password, confirmPassword} = req.body;
+        const result = await authController.register(username, email, password, confirmPassword);
+        return res.status(201).json({ message: "User registered successfully", user: result });
+    } catch (error) {
+        console.error("REGISTER API ERROR: ", error);
+
+        if (error.status) {
+            return res.status(error.status).json({ error: error.message });
+        }
+
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+async function login(req, res) {
+    try {
+        const { email, password } = req.body;
+        const user = await authController.login(email, password);
+        console.log("USER", user);
+        const token = jwt.sign(
+            { id: user._id, rol: user.rol },
+            process.env.JWT_SECRET
+        );
+        console.log("TOKEN", token);
+        return res.status(200).json({ message: "Login successful", token, user });
+    } catch (error) {
+        console.error("LOGIN API ERROR: ", error);
+        if (error.status) {
+            return res.status(error.status).json({ error: error.message });
+        }
+
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export default {  
+    register,
+    login,
+};
