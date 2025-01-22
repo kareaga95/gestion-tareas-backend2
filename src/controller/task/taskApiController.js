@@ -26,9 +26,12 @@ async function getTaskById(req, res) {
 }
 
 async function getTasksByUserId(req, res) {
-    try {
-        const userId = req.params.userId; // Obtener userId de los parámetros
+    console.log("ENTRA TASKBYUSERIDAPI ");
+    try {   
+        const userId = req.params.userId;
+        console.log("USERIDEEEEE " , userId);
         const tasks = await taskController.getTasksByUserId(userId);
+        console.log("TASKS ", tasks);
         res.status(200).json(tasks.map((task) => task.toJSON())); // Enviar tareas como JSON
     } catch (err) {
         console.error("Error en getTasksByUserId:", err);
@@ -73,17 +76,14 @@ async function updateTask(req, res) {
 
 async function deleteTask(req, res) {
     try {
-        const taskId = req.params.id;
-        const deletedTask = await taskController.deleteTask(taskId);
-        if (!deletedTask) {
-            throw new errors.TASK_NOT_FOUND();
-        }
-        res.status(200).json({ message: "Tarea eliminada con éxito" });
+      const taskId = req.params.id;
+      const deletedTask = await taskController.deleteTask(taskId);
+      res.status(200).json({ message: "Tarea eliminada con éxito", task: deletedTask });
     } catch (err) {
-        console.error("Error en deleteTask:", err);
-        res.status(err.status || 500).json({ error: err.message || "Error al eliminar la tarea" });
+      console.error("Error en deleteTask API Controller:", err);
+      res.status(err.status || 500).json({ error: err.message || "Error al eliminar la tarea" });
     }
-}
+  }
 
 export const taskApiController = {
     getAllTasks,

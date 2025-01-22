@@ -67,9 +67,17 @@ async function updateTask(taskId, taskData) {
  * Obtener todas las tareas de un usuario específico.
  */
 async function getTasksByUserId(userId) {
-    return await Task.find({ user_id: userId }).sort({ createdAt: -1 });
-}
-
+    try {
+      console.log("ENTRA TASKBYUSERID CONTROLLER"); 
+      // Buscar tareas por `user_id`
+      const tasks = await Task.find({ user_id: userId }).sort({ createdAt: -1 });
+      console.log("TASKssssssssss", tasks);
+      return tasks; // Retornar las tareas encontradas
+    } catch (err) {
+      console.error("Error en getTasksByUserId:", err.message);
+      throw err; // Lanzar el error para que el controlador lo maneje
+    }
+  }
 /**
  * Obtener todas las tareas de una categoría específica.
  */
@@ -78,16 +86,20 @@ async function getTasksByCategory(category) {
 }
 
 /**
- * Eliminar una tarea por su ID.
+ * Eliminar una tareaa.
  */
 async function deleteTask(taskId) {
-    const task = await Task.findById(taskId); // Buscar tarea por ID
-    if (!task) {
-        throw new error.TASK_NOT_FOUND(); // Error si no se encuentra la tarea
+    try {
+      const deletedTask = await Task.findByIdAndDelete(taskId); // Eliminar la tarea
+      if (!deletedTask) {
+        throw new errors.TASK_NOT_FOUND(); // Lanzar error si no se encuentra la tarea
+      }
+      return deletedTask; // Devolver la tarea eliminada
+    } catch (err) {
+      console.error("Error en deleteTask controller:", err);
+      throw err;
     }
-
-    return await task.remove(); // Eliminar tarea
-}
+  }
 
 export const taskController = {
     getAllTasks,

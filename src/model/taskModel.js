@@ -31,7 +31,7 @@ const taskSchema = new mongoose.Schema(
             default: "trabajo",
         },
         user_id: {
-            type: mongoose.Schema.Types.ObjectId, // Tipo ObjectId para relacionar con usuarios
+            type: String, // Tipo ObjectId para relacionar con usuarios
             ref: "User", // Nombre del modelo de usuarios
             required: true, // Asegurar que cada tarea esté asociada a un usuario
         },
