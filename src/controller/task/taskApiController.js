@@ -26,13 +26,10 @@ async function getTaskById(req, res) {
 }
 
 async function getTasksByUserId(req, res) {
-    console.log("ENTRA TASKBYUSERIDAPI ");
     try {   
         const userId = req.params.userId;
-        console.log("USERIDEEEEE " , userId);
         const tasks = await taskController.getTasksByUserId(userId);
-        console.log("TASKS ", tasks);
-        res.status(200).json(tasks.map((task) => task.toJSON())); // Enviar tareas como JSON
+        res.status(200).json(tasks.map((task) => task.toJSON()));
     } catch (err) {
         console.error("Error en getTasksByUserId:", err);
         res.status(err.status || 500).json({ error: err.message || "Error interno del servidor" });

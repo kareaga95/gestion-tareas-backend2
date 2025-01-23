@@ -27,13 +27,12 @@ const taskSchema = new mongoose.Schema(
         },
         category: {
             type: String,
-            enum: ["hogar", "trabajo", "clase"],
-            default: "trabajo",
+            required: true,
         },
         user_id: {
-            type: String, // Tipo ObjectId para relacionar con usuarios
-            ref: "User", // Nombre del modelo de usuarios
-            required: true, // Asegurar que cada tarea esté asociada a un usuario
+            type: String,
+            ref: "User",
+            required: true,
         },
     },
     {
