@@ -4,7 +4,6 @@ import authRouter from "./authRouter.js";
 import userRouter from "./userRouter.js";
 const router = Router();
 
-// Asignación de subrutas
 router.use("/tasks", taskRouter);
 router.use("/auth", authRouter);
 router.use("/users", userRouter);

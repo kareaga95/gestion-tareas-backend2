@@ -7,7 +7,6 @@ async function hashPassword(password) {
 }
 
 async function verifyPassword(password, hash) {
-    console.log("HASH:", password, hash)
     const match = await bcrypt.compare(password, hash);
     return match;
 }

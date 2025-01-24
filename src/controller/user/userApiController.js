@@ -1,10 +1,8 @@
 import userController from "./userController.js";
 
 async function getAllUsers(req, res) {
-    console.log("GETALLUSERS")
     try {
         const users = await userController.getAllUsers();
-        console.log("USERS", users);
         res.status(200).json(users);
     } catch (error) {
         console.error(error);
@@ -19,7 +17,6 @@ async function getAllUsers(req, res) {
 
 async function getUserByEmail(req, res) {
     try {
-        console.log("ENTRA3", req.params.email);
         const users = await userController.getUserByEmail(req.params.email);
         res.status(200).json(users);
     } catch (error) {

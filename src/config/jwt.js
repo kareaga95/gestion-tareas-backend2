@@ -19,8 +19,6 @@ function verify(token) {
     }
 }
 
-//const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
-
 function generateVerificationToken(userId){
     const payload = { id: userId };
     const token = jwt.sign(payload, SECRET);

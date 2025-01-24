@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "La contraseña es obligatoria"],
-      minlength: 8,  // Requerimiento adicional para seguridad
+      minlength: 8,
     },
     rol: {
       type: String,
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,  // Agrega automáticamente `createdAt` y `updatedAt`
+    timestamps: true,
   }
 );
 

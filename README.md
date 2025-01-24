@@ -1,6 +1,6 @@
-# 💿 Share Your Song
+# 💿 Task Organizer
 
-Share Your Song es una aplicación web de compra venta de canciones que permite a los usuarios comprar canciones de otros usuarios y subir sus propias canciones para venderlas. La plataforma proporciona herramientas intuitivas para subir canciones y comprar.
+Task Organizer es una aplicación web para la gestion de tareas. En ella podremos crear, editar, eliminar tareas, organizarlas por categorias y clasificarlas por prioridad.
 
 ## 📋 Tabla de Contenidos
 
@@ -15,25 +15,27 @@ Share Your Song es una aplicación web de compra venta de canciones que permite 
 ## 🌟 Características
 
 -   Registro y autenticación de usuarios.
--   Añadir, editar y eliminar canciones, usuarios, artistas.
--   Compra y venta de canciones.
+-   Añadir, editar y eliminar tareas.
 
 ## 🛠️ Tecnologías Utilizadas
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Multer](https://img.shields.io/badge/Multer-FF5733?style=for-the-badge&logo=node.js&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
-![JSDoc](https://img.shields.io/badge/JSDoc-FFA500?style=for-the-badge&logo=javascript&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white)
 
 ## ⚙️ Instalación
 
 1. **Clona el repositorio**:
 
     ```bash
-    git clone https://github.com/kareaga95/venta_canciones
+    git clone https://github.com/kareaga95/gestion-tareas-front2
+
+    ```
+
+     ```bash
+    git clone https://github.com/kareaga95/gestion-tareas-backend2
 
     ```
 
@@ -42,15 +44,15 @@ Share Your Song es una aplicación web de compra venta de canciones que permite 
     Utilizando el '.env.example' crea el archivo '.env' y añade las variables de entorno
 
     ```plaintext
-        DB_HOST=db
-        DB_PORT=3308
-        APP_HOST=Venta_Canciones
-        APP_PORT=3001
-        DB_USER=usuario
-        DB_PASSWORD=12345
-        DB_NAME=venta_canciones
-        SECRET=clave_secreta
-        DB_DIALECT=mysql
+        MONGO_HOST=mongo_gestion_tareas
+        MONGO_USER=user
+        MONGO_PASSWORD=1234
+        MONGO_DATABASE=gestion_tareas
+        MONGO_PORT=27017
+
+        APP_HOST=express_gestion_tareas
+        APP_PORT=3002
+
         JWT_SECRET=secretoJWTMikel
         SESSION_SECRET=secretSessionMikel
     ```
@@ -71,21 +73,10 @@ Share Your Song es una aplicación web de compra venta de canciones que permite 
     - Ingresa con tu usuario y contraseña si ya tienes una cuenta.
     - Si no tienes cuenta, regístrate rápidamente con tus datos personales.
 
-2. **Compra de Canciones**:
-    - Accede a la ventana las canciones donde puedes:
-        - Ver todas todas las canciones disponibles de la tienda.
-        - Filtrar titulo.
-    - Añade una nueva compra pulsando en boton "Comprar" de cada canción:
-
-3. **Venta de Canciónes:**
-    - Pulsando en el boton de "Soy artista" rellenaremos el formulario para poder acceder a nuestra cuenta como artista.
-    - Una vez creada la cuenta como artista, podremos subir nuestras canciones rellenando el formulario con los siguientes campos:
-        -Titulo
-        -Genero
-        -Precio
-        -Fecha de estreno
-        -Portada
-        -Archivo de audio
+2. **Gestion de Tareas**:
+    - Accede a la ventana de listado de tareas.
+    - Podras editar, eliminar tareas.
+    - Desde navbar podras crear nuevas tareas.
 
 ## 📌 Endpoints
 
@@ -93,49 +84,22 @@ Share Your Song es una aplicación web de compra venta de canciones que permite 
 
 /auth/register
 
-/songs/
+/tasks
 
-/songs/artist
+/tasks/user/:userId
 
-/songs/:id/download
+/tasks/category/:category
 
-/songs/new
+/tasks/:id
 
-/songs/:id/update
+/tasks/:id/delete
 
-/songs/:id/delete
-
-/songs/:id
-
-
-/users/
+/users
 
 /users/new
 
 /users/:id/update
 
-/users/status
-
 /users/:id
 
 /users/email/:email
-
-
-/purchases/new
-
-/purchases/user
-
-
-/artists/
-
-/artists/:id
-
-/artists/new
-
-/artists/update
-
-/artists/status
-
-
-
-

@@ -9,21 +9,21 @@ async function getAllTasks(filters) {
     const query = {};
 
     if (completed !== undefined) {
-        query.completed = completed === "true"; // Convierte el valor a booleano
+        query.completed = completed === "true";
     }
 
     if (search) {
         query.$or = [
-            { title: { $regex: search, $options: "i" } }, // Búsqueda en título
-            { description: { $regex: search, $options: "i" } }, // Búsqueda en descripción
+            { title: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
         ];
     }
 
     if (priority) {
-        query.priority = priority; // Filtro por prioridad
+        query.priority = priority;
     }
 
-    return await Task.find(query).sort({ createdAt: -1 }); // Ordenar por fecha de creación descendente
+    return await Task.find(query).sort({ createdAt: -1 });
 }
 
 /**
@@ -32,7 +32,7 @@ async function getAllTasks(filters) {
 async function getTaskById(taskId) {
     const task = await Task.findById(taskId);
     if (!task) {
-        throw new error.TASK_NOT_FOUND(); // Error si no se encuentra la tarea
+        throw new error.TASK_NOT_FOUND();
     }
     return task;
 }
@@ -42,11 +42,11 @@ async function getTaskById(taskId) {
  */
 async function createTask(taskData) {
     try {
-        const newTask = new Task(taskData); // Crear instancia de tarea
-        return await newTask.save(); // Guardar tarea en la base de datos
+        const newTask = new Task(taskData);
+        return await newTask.save();
     } catch (err) {
         console.error("Error al crear tarea:", err);
-        throw new error.VALIDATION_ERROR(); // Lanzar error de validación si ocurre
+        throw new error.VALIDATION_ERROR();
     }
 }
 
@@ -54,13 +54,13 @@ async function createTask(taskData) {
  * Actualizar una tarea por su ID.
  */
 async function updateTask(taskId, taskData) {
-    const task = await Task.findById(taskId); // Buscar tarea por ID
+    const task = await Task.findById(taskId);
     if (!task) {
-        throw new error.TASK_NOT_FOUND(); // Error si no se encuentra la tarea
+        throw new error.TASK_NOT_FOUND();
     }
 
-    Object.assign(task, taskData); // Actualizar campos de la tarea
-    return await task.save(); // Guardar los cambios
+    Object.assign(task, taskData); 
+    return await task.save();
 }
 
 /**
@@ -68,14 +68,11 @@ async function updateTask(taskId, taskData) {
  */
 async function getTasksByUserId(userId) {
     try {
-      console.log("ENTRA TASKBYUSERID CONTROLLER"); 
-      // Buscar tareas por `user_id`
       const tasks = await Task.find({ user_id: userId }).sort({ createdAt: -1 });
-      console.log("TASKssssssssss", tasks);
-      return tasks; // Retornar las tareas encontradas
+      return tasks;
     } catch (err) {
       console.error("Error en getTasksByUserId:", err.message);
-      throw err; // Lanzar el error para que el controlador lo maneje
+      throw err;
     }
   }
 /**
@@ -90,11 +87,11 @@ async function getTasksByCategory(category) {
  */
 async function deleteTask(taskId) {
     try {
-      const deletedTask = await Task.findByIdAndDelete(taskId); // Eliminar la tarea
+      const deletedTask = await Task.findByIdAndDelete(taskId);
       if (!deletedTask) {
-        throw new errors.TASK_NOT_FOUND(); // Lanzar error si no se encuentra la tarea
+        throw new errors.TASK_NOT_FOUND();
       }
-      return deletedTask; // Devolver la tarea eliminada
+      return deletedTask;
     } catch (err) {
       console.error("Error en deleteTask controller:", err);
       throw err;

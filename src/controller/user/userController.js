@@ -19,7 +19,6 @@ import { hashPassword } from "../../config/bcrypt.js";
  * }
  */
 async function getAllUsers() {
-    console.log("ENTRA CONTROLLER USERS");
     const users = await User.find();
     if (!users.length) {
         throw new error.NO_USERS_FOUND();

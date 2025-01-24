@@ -4,7 +4,7 @@ import errors from "../../helpers/errors.js";
 async function getAllTasks(req, res) {
     try {
         const tasks = await taskController.getAllTasks(req.query);
-        res.status(200).json(tasks.map((task) => task.toJSON())); // Enviar tareas como JSON
+        res.status(200).json(tasks.map((task) => task.toJSON()));
     } catch (err) {
         console.error("Error en getAllTasks:", err);
         res.status(err.status || 500).json({ error: err.message || "Error interno del servidor" });
@@ -38,9 +38,9 @@ async function getTasksByUserId(req, res) {
 
 async function getTasksByCategory(req, res) {
     try {
-        const category = req.params.category; // Obtener la categoría de los parámetros
+        const category = req.params.category;
         const tasks = await taskController.getTasksByCategory(category);
-        res.status(200).json(tasks.map((task) => task.toJSON())); // Enviar tareas como JSON
+        res.status(200).json(tasks.map((task) => task.toJSON()));
     } catch (err) {
         console.error("Error en getTasksByCategory:", err);
         res.status(err.status || 500).json({ error: err.message || "Error interno del servidor" });
