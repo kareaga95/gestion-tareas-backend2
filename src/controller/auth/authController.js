@@ -26,13 +26,12 @@ import User from "../../model/userModel.js";
  * }
  */
 async function register(username, email, password, confirmPassword) {
-        const existingEmail = await User.findOne({where: {email: email}});
-        const existingUsername = await User.findOne({where: {username: username}});
-
+        const existingEmail = await User.findOne({ email });
         if (existingEmail) {
             throw new error.EMAIL_ALREADY_EXISTS();
         }
 
+        const existingUsername = await User.findOne({ username });
         if (existingUsername) {
             throw new error.USERNAME_ALREADY_EXISTS();
         }
@@ -43,7 +42,10 @@ async function register(username, email, password, confirmPassword) {
 
         const newUser = await userController.createUser(username, email, password);
         return newUser;
+
 }
+
+
 
 /**
  * Inicia sesión para un usuario existente.
@@ -66,23 +68,21 @@ async function register(username, email, password, confirmPassword) {
  * }
  */
 async function login(email, password) {
-    console.log("USUARIO CONTRA:", email,password)
-        const user = await userController.getUserByEmail(email);
-        console.log("USUARIO BUSCADO:", user)
-        if (!user) {
-            throw new error.USER_NOT_FOUND();
-        }
-console.log("PASSWORD:", password, user.password)
-        const verified = await verifyPassword(password, user.password);
-        if (!verified) {
-            throw new error.INVALID_CREDENTIALS();
-        }
-
-        if (user.active === 0) {
-            throw new error.USER_NOT_ACTIVE();
-        }
-
-        return user;
+     const user = await User.findOne({ email });
+     if (!user) {
+       throw new error.USER_NOT_FOUND();
+     }
+ 
+     const verified = await verifyPassword(password, user.password);
+     if (!verified) {
+       throw new error.INVALID_CREDENTIALS();
+     }
+ 
+     if (!user.active) {
+       throw new error.USER_NOT_ACTIVE();
+     }
+ 
+     return user;
 }
 
 export const functions = {
